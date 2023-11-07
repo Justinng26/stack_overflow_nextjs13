@@ -9,6 +9,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <h1 className="h1-bold">hello world</h1>
         <body>{children}</body>
       </html>
     </ClerkProvider>
