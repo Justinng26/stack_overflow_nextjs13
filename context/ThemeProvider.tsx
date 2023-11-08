@@ -29,7 +29,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   //   The useEffect hook will be called when the mode changes.
   useEffect(() => {
     handleThemeChange();
-  }, [mode]);
+  }, []);
 
   //   The ThemeContext.Provider will be used to pass the theme to the components.
   //  The value prop will be used to pass the mode and setMode functions to the components.
