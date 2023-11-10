@@ -16,20 +16,26 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState("");
 
   //   The handleThemeChange function will be used to change the theme by adding a class to the document element.
+  // if the localStorage.theme is dark or if the user has set the dark mode in the browser, the dark mode will be used. Otherwise, the light mode will be used.
+  // EXPLANATION 18:17, theme switcher and mobile navigation
   const handleThemeChange = () => {
-    if (mode === "dark") {
-      setMode("light");
-      document.documentElement.classList.add("light");
-    } else {
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
       setMode("dark");
       document.documentElement.classList.add("dark");
+    } else {
+      setMode("light");
+      document.documentElement.classList.remove("dark");
     }
   };
 
   //   The useEffect hook will be called when the mode changes.
   useEffect(() => {
     handleThemeChange();
-  }, []);
+  }, [mode]);
 
   //   The ThemeContext.Provider will be used to pass the theme to the components.
   //  The value prop will be used to pass the mode and setMode functions to the components.
