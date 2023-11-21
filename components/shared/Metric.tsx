@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface MetricProps {
   imgUrl: string;
@@ -20,8 +21,8 @@ const Metric = ({
   textStyles,
   isAuthor,
 }: MetricProps) => {
-  return (
-    <div className="flex-center flex-wrap gap-1">
+  const metricContent = (
+    <>
       <Image
         src={imgUrl}
         width={16}
@@ -33,9 +34,26 @@ const Metric = ({
       <p className={`${textStyles} flex items-center gap-1`}>
         {value}
 
-        {title}
+        <span
+          className={`small-regular line-clamp-1 ${
+            isAuthor ? "max-sm:hidden" : ""
+          }`}
+        >
+          {title}
+        </span>
       </p>
-    </div>
+    </>
   );
+
+  // If href is provided, wrap the metric content in a Link component
+  if (href) {
+    return (
+      <Link href={href} className="flex-center gap-1">
+        {metricContent}
+      </Link>
+    );
+  }
+  // If no href is provided, render the metric content directly
+  return <div className="flex-center flex-wrap gap-1">{metricContent}</div>;
 };
 export default Metric;
