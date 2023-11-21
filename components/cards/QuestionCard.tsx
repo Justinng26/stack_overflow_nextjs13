@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import RenderTag from "../shared/RenderTag";
+import Metric from "../shared/Metric";
 
 interface QuestionProps {
   _id: string;
@@ -43,7 +45,44 @@ const QuestionCard = ({
           </Link>
         </div>
       </div>
-      {title}
+
+      <div className="mt-3.5 flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
+        ))}
+      </div>
+
+      <div className="flex-between mt-6 w-full flex-wrap gap-3">
+        <Metric
+          imgUrl="/assets/icons/avatar.svg"
+          alt="upvotes"
+          value={upvotes}
+          title="Votes"
+          textStyles="small-medium text-dark400_light800"
+        />
+
+        <Metric
+          imgUrl="/assets/icons/like.svg"
+          alt="upvotes"
+          value={upvotes}
+          title="Votes"
+          textStyles="small-medium text-dark400_light800"
+        />
+        <Metric
+          imgUrl="/assets/icons/message.svg"
+          alt="message"
+          value={answers.length}
+          title="Answers"
+          textStyles="small-medium text-dark400_light800"
+        />
+        <Metric
+          imgUrl="/assets/icons/eye.svg"
+          alt="eye"
+          value={views}
+          title="Views"
+          textStyles="small-medium text-dark400_light800"
+        />
+      </div>
     </div>
   );
 };

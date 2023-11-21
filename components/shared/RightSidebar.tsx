@@ -5,34 +5,34 @@ import RenderTag from "./RenderTag";
 
 const hotQuestions = [
   {
-    _id: 1,
+    _id: "1",
     title: "How to use the new Next.js Image Component?",
   },
   {
-    _id: 2,
+    _id: "2",
     title: "cascading deletes in laravel?",
   },
 
   {
-    _id: 3,
+    _id: "3",
     title: "How do I express custom server logic in Next.js?",
   },
   {
-    _id: 4,
+    _id: "4",
     title: "how to perfectly center a div using tailwind?",
   },
   {
-    _id: 5,
+    _id: "5",
     title: "Best practices for using Next.js Image Component?",
   },
 ];
 
 const popularTags = [
-  { _id: 1, name: "javascript", totalQuestions: 5 },
-  { _id: 2, name: "react", totalQuestions: 5 },
-  { _id: 3, name: "next.js", totalQuestions: 5 },
-  { _id: 4, name: "vue.js", totalQuestions: 5 },
-  { _id: 5, name: "redux", totalQuestions: 10 },
+  { _id: "1", name: "javascript", totalQuestions: 5 },
+  { _id: "2", name: "react", totalQuestions: 5 },
+  { _id: "3", name: "next.js", totalQuestions: 5 },
+  { _id: "4", name: "vue.js", totalQuestions: 5 },
+  { _id: "5", name: "redux", totalQuestions: 10 },
 ];
 
 const RightSidebar = () => {
