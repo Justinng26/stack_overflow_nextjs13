@@ -45,6 +45,7 @@ const Question = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex w-full flex-col gap-10"
       >
+        {/* title */}
         <FormField
           control={form.control}
           name="title"
@@ -54,10 +55,35 @@ const Question = () => {
                 Question Title<span className="text-primary-500 ">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
+                <Input
+                  className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                  {...field}
+                />
+              </FormControl>
+
+              <FormDescription className="body-regular mt-2.5 text-light-500">
+                Be specific and imagine you&apos;re asking a question to another
+                person.
+              </FormDescription>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="explanation"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col gap-3">
+              <FormLabel className="paragraph-semibold text-dark400_light800">
+                Detailed explanation of your problem{" "}
+                <span className="text-primary-500">*</span>
+              </FormLabel>
+              <FormControl className="mt-3.5">
                 <Editor
-                  // apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
+                  apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                   onInit={(evt, editor) => {
-                    //   // @ts-ignore
+                    // @ts-ignore
                     editorRef.current = editor;
                   }}
                   // onBlur={field.onBlur}
@@ -99,6 +125,7 @@ const Question = () => {
             </FormItem>
           )}
         />
+
         {/* Tags */}
         <FormField
           control={form.control}
