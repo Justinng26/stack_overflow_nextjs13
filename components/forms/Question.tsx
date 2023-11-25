@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import { Editor } from "@tinymce/tinymce-react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,8 +21,11 @@ import { QuestionsSchema } from "@/lib/validations";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 
+const type: any = "create";
+
 const Question = () => {
   const editorRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionsSchema>>({
@@ -36,18 +39,28 @@ const Question = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof QuestionsSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    // By setting isSubmitting to true, the form will display a spinner and disable the submit button. Which will prevent the user from submitting the form multiple times causing an error.
+    setIsSubmitting(true);
+
+    try {
+      // make an async call to your API -> create a question
+      // contain all form data
+      // navigate to home page
+    } catch (error) {
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const handleInputKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     field: any
   ) => {
+    // Check if the Enter key is pressed and if the input field is for tags
     if (e.key === "Enter" && field.name === "tags") {
       e.preventDefault();
 
+      // Get the value from the input field and remove leading/trailing whitespace
       const tagInput = e.target as HTMLInputElement;
       const tagValue = tagInput.value.trim();
 
@@ -76,8 +89,10 @@ const Question = () => {
 
   // this function
   const handleTagRemove = (tag: string, field: any) => {
+    // Filter out the removed tag from the tags array
     const newTags = field.value.filter((t: string) => t !== tag);
 
+    // Update the tags array in the form
     form.setValue("tags", newTags);
   };
 
@@ -215,7 +230,17 @@ const Question = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          className="primary-gradient w-fit !text-light-900"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>{type === "edit" ? "Editing..." : "Posting..."}</>
+          ) : (
+            <>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
+          )}
+        </Button>
       </form>
     </Form>
   );
