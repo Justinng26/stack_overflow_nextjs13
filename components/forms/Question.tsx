@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { QuestionsSchema } from "@/lib/validations";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
+import { createQuestion } from "@/lib/actions/question.action";
 
 const type: any = "create";
 
@@ -38,7 +39,7 @@ const Question = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     // By setting isSubmitting to true, the form will display a spinner and disable the submit button. Which will prevent the user from submitting the form multiple times causing an error.
     setIsSubmitting(true);
 
@@ -46,6 +47,8 @@ const Question = () => {
       // make an async call to your API -> create a question
       // contain all form data
       // navigate to home page
+
+      await createQuestion({});
     } catch (error) {
     } finally {
       setIsSubmitting(false);
@@ -143,8 +146,8 @@ const Question = () => {
                     // @ts-ignore
                     editorRef.current = editor;
                   }}
-                  // onBlur={field.onBlur}
-                  // onEditorChange={(content) => field.onChange(content)}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 350,
