@@ -48,7 +48,12 @@ const Question = () => {
       // contain all form data
       // navigate to home page
 
-      await createQuestion({});
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        //  author:
+      });
     } catch (error) {
     } finally {
       setIsSubmitting(false);
