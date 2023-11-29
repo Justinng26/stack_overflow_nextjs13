@@ -15,11 +15,13 @@ interface QuestionProps {
     _id: string;
     name: string;
     picture: string;
+    clerkId: string;
   };
-  upvotes: number;
+  upvotes: string[];
   views: number;
   answers: Array<object>;
   createdAt: Date;
+  clerkId: string | null;
 }
 
 const QuestionCard = ({
@@ -53,13 +55,15 @@ const QuestionCard = ({
         ))}
       </div>
 
+      {/* INCLUDED OPTIONAL '?' FOR VALUE AND HREF, COULD BE AN ISSUE IN THE FUTURE */}
+
       <div className="flex-between mt-6 w-full flex-wrap gap-3">
         <Metric
           imgUrl="/assets/icons/avatar.svg"
           alt="user"
-          value={author.name}
+          value={author?.name}
           title={`- asked ${getTimestamp(createdAt)}`}
-          href={`/profile/${author._id}`}
+          href={`/profile/${author?._id}`}
           isAuthor
           textStyles="body-medium text-dark400_light700"
         />
