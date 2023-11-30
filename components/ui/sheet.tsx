@@ -7,12 +7,6 @@ import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-// Hypothetical type definition
-type DialogPortalProps = {
-  className: string;
-  // ... other properties
-};
-
 const Sheet = SheetPrimitive.Root;
 
 const SheetTrigger = SheetPrimitive.Trigger;
