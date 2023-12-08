@@ -47,6 +47,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
         path: pathname,
       });
 
+      // Reset form and editor content on successful answer creation
       form.reset();
 
       if (editorRef.current) {
