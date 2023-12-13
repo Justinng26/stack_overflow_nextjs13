@@ -1,12 +1,17 @@
-import ProfileLink from "@/components/shared/ProfileLink";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getUserInfo } from "@/lib/actions/user.action";
-import { getJoinedDate } from "@/lib/utils";
 import { URLProps } from "@/types";
 import { SignedIn, auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import React from "react";
+import { getJoinedDate } from "@/lib/utils";
+import ProfileLink from "@/components/shared/ProfileLink";
+import Stats from "@/components/shared/Stats";
+import QuestionTab from "@/components/shared/QuestionTab";
+import AnswersTab from "@/components/shared/AnswersTab";
 
 const Page = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = auth();
@@ -33,6 +38,14 @@ const Page = async ({ params, searchParams }: URLProps) => {
             </p>
 
             <div className="mt-5 flex flex-wrap items-center justify-start gap-5">
+              {userInfo.user.portfolioWebsite && (
+                <ProfileLink
+                  imgUrl="/assets/icons/link.svg"
+                  href={userInfo.user.portfolioWebsite}
+                  title="Portfolio"
+                />
+              )}
+
               {userInfo.user.location && (
                 <ProfileLink
                   imgUrl="/assets/icons/location.svg"
@@ -41,12 +54,16 @@ const Page = async ({ params, searchParams }: URLProps) => {
               )}
 
               <ProfileLink
-                imgUrl="/assets/icons/calender.svg"
+                imgUrl="/assets/icons/calendar.svg"
                 title={getJoinedDate(userInfo.user.joinedAt)}
               />
             </div>
 
-            {userInfo.user.bio && <p>{userInfo.user.bio}</p>}
+            {userInfo.user.bio && (
+              <p className="paragraph-regular text-dark400_light800 mt-8">
+                {userInfo.user.bio}
+              </p>
+            )}
           </div>
         </div>
 
@@ -62,8 +79,13 @@ const Page = async ({ params, searchParams }: URLProps) => {
           </SignedIn>
         </div>
       </div>
-      Stats
-      <div className="mt-10 gap-10">
+
+      <Stats
+        totalQuestions={userInfo.totalQuestions}
+        totalAnswers={userInfo.totalAnswers}
+      />
+
+      <div className="mt-10 flex gap-10">
         <Tabs defaultValue="top-posts" className="flex-1">
           <TabsList className="background-light800_dark400 min-h-[42px] p-1">
             <TabsTrigger value="top-posts" className="tab">
@@ -73,11 +95,24 @@ const Page = async ({ params, searchParams }: URLProps) => {
               Answers
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="top-posts">POSTS</TabsContent>
-          <TabsContent value="answers">ANSWERS</TabsContent>
+          <TabsContent value="top-posts">
+            <QuestionTab
+              searchParams={searchParams}
+              userId={userInfo.user._id}
+              clerkId={clerkId}
+            />
+          </TabsContent>
+          <TabsContent value="answers" className="flex w-full flex-col gap-6">
+            <AnswersTab
+              searchParams={searchParams}
+              userId={userInfo.user._id}
+              clerkId={clerkId}
+            />
+          </TabsContent>
         </Tabs>
       </div>
     </>
   );
 };
+
 export default Page;
