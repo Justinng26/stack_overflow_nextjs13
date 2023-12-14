@@ -17,7 +17,6 @@ import { revalidatePath } from "next/cache";
 import { FilterQuery } from "mongoose";
 import Tag from "@/database/tag.model";
 import Answer from "@/database/answer.model";
-import Answer from "@/database/answer.model";
 
 export async function getUserById(params: any) {
   try {
@@ -237,7 +236,7 @@ export async function getUserAnswers(params: GetUserStatsParams) {
 
     const userAnswers = await Answer.find({ author: userId })
       .sort({ upvotes: -1 })
-      .populate("tags", "_id title")
+      .populate("question", "_id title")
       .populate("author", "_id name clerkId picture");
 
     return { totalAnswers, answers: userAnswers };
