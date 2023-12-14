@@ -25,17 +25,19 @@ import { useRouter, usePathname } from "next/navigation";
 
 import { useTheme } from "@/context/ThemeProvider";
 
-const type: any = "create";
-
 interface Props {
+  type?: string;
   mongoUserId: string;
+  questionDetails?: string;
 }
 
-const Question = ({ mongoUserId }: Props) => {
+const Question = ({ type, mongoUserId, questionDetails }: Props) => {
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
+  const parsedQuestionDetails = JSON.parse(questionDetails || "{}");
 
   // 1. Define your form.
   const { mode } = useTheme();
@@ -43,7 +45,7 @@ const Question = ({ mongoUserId }: Props) => {
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
       title: "",
-      explanation: "",
+      explanation: parsedQuestionDetails.title || "",
       tags: [],
     },
   });
@@ -259,9 +261,9 @@ const Question = ({ mongoUserId }: Props) => {
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <>{type === "edit" ? "Editing..." : "Posting..."}</>
+            <>{type === "Edit" ? "Editing..." : "Posting..."}</>
           ) : (
-            <>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
+            <>{type === "Edit" ? "Edit Question" : "Ask a Question"}</>
           )}
         </Button>
       </form>
