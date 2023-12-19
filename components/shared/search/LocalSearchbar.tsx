@@ -90,3 +90,5 @@ const LocalSearchbar = ({
   );
 };
 export default LocalSearchbar;
+
+//  component is a search bar that allows users to input search queries and dynamically updates the URL based on the entered search term. It includes debouncing logic to avoid excessive URL updates during rapid typing.
