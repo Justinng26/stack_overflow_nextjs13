@@ -6,6 +6,7 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { globalSearch } from "@/lib/actions/general.action";
 
 const GlobalResult = () => {
   const searchParams = useSearchParams();
@@ -26,6 +27,11 @@ const GlobalResult = () => {
       setIsLoading(true);
 
       try {
+        const res = await globalSearch({
+          query: global,
+          type,
+        });
+        setResult(JSON.parse(res));
       } catch (error) {
         console.log(error);
         throw error;
@@ -33,10 +39,25 @@ const GlobalResult = () => {
         setIsLoading(false);
       }
     };
+
+    if (global) {
+      fetchResult();
+    }
   }, [global, type]);
 
   const renderLink = (type: string, id: string) => {
-    return "/constants";
+    switch (type) {
+      case "question":
+        return `/question/${id}`;
+      case "tag":
+        return `/tags/${id}`;
+      case "user":
+        return `/profile/${id}`;
+      case "answer":
+        return `/question/${id}`;
+      default:
+        return "/";
+    }
   };
 
   return (
@@ -61,7 +82,7 @@ const GlobalResult = () => {
             {result.length > 0 ? (
               result.map((item: any, index: number) => (
                 <Link
-                  href={renderLink("type", "id")}
+                  href={renderLink(item.type, item.id)}
                   key={item.type + item.id + index}
                   className="flex w-full cursor-pointer items-start gap-3 px-5 py-2.5 hover:bg-light-700/50 dark:bg-dark-500/50"
                 >
