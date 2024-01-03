@@ -10,6 +10,11 @@ import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.action";
 import AllAnswers from "@/components/shared/AllAnswers";
 import Votes from "@/components/shared/Votes";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Question Page | Dev Overflow",
+};
 
 const Page = async ({ params, searchParams }) => {
   const { userId: clerkId } = auth();

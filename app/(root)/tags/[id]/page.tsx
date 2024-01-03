@@ -5,6 +5,11 @@ import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { IQuestion } from "@/database/question.model";
 import { getQuestionsByTagId } from "@/lib/actions/tag.actions";
 import { URLProps } from "@/types";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tags | Dev Overflow",
+};
 
 const Page = async ({ params, searchParams }: URLProps) => {
   const result = await getQuestionsByTagId({
