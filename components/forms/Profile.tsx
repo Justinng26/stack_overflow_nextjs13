@@ -18,6 +18,7 @@ import { useState } from "react";
 import { ProfileSchema } from "@/lib/validations";
 import { usePathname, useRouter } from "next/navigation";
 import { updateUser } from "@/lib/actions/user.action";
+import { toast } from "../ui/use-toast";
 
 interface Props {
   clerkId: string;
@@ -62,6 +63,11 @@ const Profile = ({ clerkId, user }: Props) => {
     } finally {
       setIsSubmitting(false);
     }
+
+    return toast({
+      title: "Changes saved!",
+      variant: !isSubmitting ? "default" : "destructive",
+    });
   }
 
   return (
