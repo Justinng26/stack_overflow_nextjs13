@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "Question Page | Dev Overflow",
 };
 
-const Page = async ({ params, searchParams }) => {
+const Page = async ({ params, searchParams }: any) => {
   const { userId: clerkId } = auth();
 
   let mongoUser;
