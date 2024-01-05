@@ -1,4 +1,3 @@
-import { Number } from "mongoose";
 import Filter from "./Filter";
 import { AnswerFilters } from "@/constants/filters";
 import { getAnswer } from "@/lib/actions/answer.action";
