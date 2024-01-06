@@ -69,6 +69,11 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
         });
 
         router.push(`/question/${parsedQuestionDetails._id}`);
+
+        return toast({
+          title: "Successfully edited your question!",
+          variant: !isSubmitting ? "default" : "destructive",
+        });
       } else {
         await createQuestion({
           title: values.title,
@@ -80,16 +85,15 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
 
         // navigate to home page
         router.push("/");
+        return toast({
+          title: "Successfully asked your question!",
+          variant: !isSubmitting ? "default" : "destructive",
+        });
       }
     } catch (error) {
     } finally {
       setIsSubmitting(false);
     }
-
-    return toast({
-      title: "Successfully editted your question!",
-      variant: !isSubmitting ? "default" : "destructive",
-    });
   }
 
   const handleInputKeyDown = (
