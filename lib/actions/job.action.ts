@@ -31,11 +31,7 @@ export const fetchJobs = async (filters: JobFilterParams) => {
     }
   );
 
-  console.log(response.status, response.statusText);
-
   const result = await response.json();
-
-  console.log(result);
 
   return result.data;
 };
