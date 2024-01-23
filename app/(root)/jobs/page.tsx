@@ -31,6 +31,8 @@ const Page = async ({ searchParams }: Props) => {
   const countries = await fetchCountries();
   const page = parseInt(searchParams.page ?? 1);
 
+  // test jobs page deployment
+
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">Jobs</h1>
